@@ -1,0 +1,148 @@
+# ── Python Backend ──────────────────────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+PIPFILE.lock
+
+# ── Virtual Environment ─────────────────────────────────────────────────────────────────────────────
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+.venv/
+
+# ── Environment Variables ───────────────────────────────────────────────────────────────────────────
+.env
+.env.local
+.env.*.local
+*.env
+
+# ── Docker ──────────────────────────────────────────────────────────────────────────────────────────
+.dockerignore
+docker-compose.override.yml
+
+# ── Database ────────────────────────────────────────────────────────────────────────────────────────
+*.db
+*.sqlite
+*.sqlite3
+postgres_data/
+redis_data/
+
+# ── Uploads & Storage ───────────────────────────────────────────────────────────────────────────────
+uploads/
+static/avatars/
+
+# ── Flutter Mobile App ──────────────────────────────────────────────────────────────────────────────
+jarvis_mobile/build/
+jarvis_mobile/.dart_tool/
+jarvis_mobile/.flutter-plugins
+jarvis_mobile/.flutter-plugins-dependencies
+jarvis_mobile/.packages
+jarvis_mobile/.pub-cache/
+jarvis_mobile/.pub/
+jarvis_mobile/pubspec.lock
+
+# ── Android ─────────────────────────────────────────────────────────────────────────────────────────
+jarvis_mobile/android/.gradle/
+jarvis_mobile/android/gradle/
+jarvis_mobile/android/gradlew
+jarvis_mobile/android/gradlew.bat
+jarvis_mobile/android/local.properties
+jarvis_mobile/android/key.properties
+jarvis_mobile/android/app/debug/
+jarvis_mobile/android/app/profile/
+jarvis_mobile/android/app/release/
+jarvis_mobile/android/.cxx/
+jarvis_mobile/android/captures/
+
+# ── iOS ─────────────────────────────────────────────────────────────────────────────────────────────
+jarvis_mobile/ios/Flutter/flutter_export_environment.sh
+jarvis_mobile/ios/Flutter/Generated.xcconfig
+jarvis_mobile/ios/Runner/GeneratedPluginRegistrant.*
+jarvis_mobile/ios/.symlinks/
+jarvis_mobile/ios/Pods/
+jarvis_mobile/ios/Podfile.lock
+jarvis_mobile/ios/Runner.xcworkspace/
+
+# ── Node.js (if any) ────────────────────────────────────────────────────────────────────────────────
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# ── IDE & Editors ───────────────────────────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ── Logs ────────────────────────────────────────────────────────────────────────────────────────────
+*.log
+logs/
+
+# ── OS Generated ────────────────────────────────────────────────────────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# ── Temporary Files ─────────────────────────────────────────────────────────────────────────────────
+*.tmp
+*.temp
+*.bak
+*.backup
+
+# ── API Keys & Secrets ──────────────────────────────────────────────────────────────────────────────
+*.pem
+*.key
+*.crt
+*.p12
+*.keystore
+api_keys.txt
+secrets.json
+
+# ── Testing ─────────────────────────────────────────────────────────────────────────────────────────
+.coverage
+.pytest_cache/
+.tox/
+.nox/
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+
+# ── Documentation ───────────────────────────────────────────────────────────────────────────────────
+docs/_build/
+
+# ── Jupyter Notebook ────────────────────────────────────────────────────────────────────────────────
+.ipynb_checkpoints
+
+# ── mypy ────────────────────────────────────────────────────────────────────────────────────────────
+.mypy_cache/
+.dmypy.json
+dmypy.json

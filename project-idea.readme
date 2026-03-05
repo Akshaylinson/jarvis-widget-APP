@@ -1,0 +1,490 @@
+JARVIS AI Mobile Assistant (Multi-Tenant SaaS Platform)
+Project Goal
+
+Develop a mobile AI assistant platform similar to JARVIS that runs as an Android application with a floating avatar widget, powered by a centralized SaaS backend.
+
+The system must support multi-tenant architecture, meaning each user has their own assistant configuration and data isolated by tenant ID.
+
+The mobile assistant must support:
+
+voice interaction
+
+wake word detection
+
+customizable avatar
+
+customizable voice
+
+backend AI responses
+
+knowledge retrieval
+
+simple automation tasks
+
+The backend infrastructure will be fully controlled and hosted by us.
+
+🚀 Development Scope
+Phase 1
+
+Core assistant features.
+
+Features:
+
+Flutter mobile app
+
+Floating avatar widget
+
+Wake word detection
+
+Speech-to-text
+
+Gemini AI integration
+
+Text-to-speech response
+
+Knowledge queries
+
+Question answering
+
+Supported commands:
+
+ask general questions
+
+ask about knowledge base
+
+basic conversational interaction
+
+Phase 2
+
+Automation features.
+
+Add support for:
+
+open installed apps
+
+set reminders
+
+perform internet searches
+
+🏗 System Architecture
+                 SaaS Backend
+                     │
+                     │ HTTPS API
+                     ▼
+             AI Agent Engine
+                     │
+        ┌────────────┼────────────┐
+        ▼            ▼            ▼
+   Knowledge DB   Task Engine    LLM Layer
+                                   │
+                      ┌────────────┴─────────────┐
+                      ▼                          ▼
+                   Gemini API             OpenRouter
+                                            GPT-4o-mini
+
+Mobile side:
+
+Flutter Mobile App
+      │
+      │ voice query
+      ▼
+Backend API
+      │
+      ▼
+AI Response
+      │
+      ▼
+Flutter TTS
+📱 Mobile Application
+Technology
+
+Flutter
+
+Android first.
+
+The app must support:
+
+user authentication
+
+assistant configuration dashboard
+
+floating widget overlay
+
+voice interaction
+
+background wake-word detection
+
+📱 Mobile App Structure
+jarvis_mobile_app
+│
+├── lib
+│
+├── services
+│   ├── speech_service.dart
+│   ├── wake_word_service.dart
+│   ├── tts_service.dart
+│   ├── api_service.dart
+│
+├── widgets
+│   ├── floating_avatar.dart
+│   ├── assistant_panel.dart
+│
+├── screens
+│   ├── login_screen.dart
+│   ├── signup_screen.dart
+│   ├── dashboard_screen.dart
+│
+└── main.dart
+📱 Mobile Features
+Login and Signup
+
+Users create accounts inside the app.
+
+Signup request:
+
+POST /auth/signup
+
+Backend creates:
+
+tenant_id
+assistant_config
+🎛 Dashboard (Inside Mobile App)
+
+Users must be able to customize the assistant.
+
+Settings:
+
+avatar image
+wake word
+voice gender
+assistant name
+
+Example UI:
+
+Assistant Dashboard
+
+Avatar
+Wake Word
+Voice Gender
+
+[ Turn ON Assistant ]
+🖼 Avatar System
+
+Users upload an avatar.
+
+Process:
+
+Upload image → backend → object storage
+
+Database stores:
+
+avatar_url
+
+Mobile app loads avatar dynamically.
+
+🎤 Wake Word Detection
+
+The assistant must listen for a wake phrase.
+
+Example:
+
+Hey Jarvis
+Hello Nova
+
+The wake word must be:
+
+configurable per tenant
+
+The mobile app fetches wake word from backend config.
+
+Possible implementation options:
+
+Option 1 (MVP):
+
+continuous speech_to_text listening
+detect wake phrase
+
+Option 2 (recommended):
+
+Porcupine wake word engine
+🎤 Speech Recognition
+
+Use Flutter plugin:
+
+speech_to_text
+
+Workflow:
+
+wake word detected
+→ start STT
+→ convert speech to text
+🔊 Text-to-Speech
+
+Use:
+
+flutter_tts
+
+Voice must be selected based on:
+
+voice_gender
+
+Options:
+
+male
+female
+
+The voice must not be hardcoded.
+
+The mobile app should dynamically select system voices.
+
+🧠 Backend Architecture
+
+Technology stack:
+
+FastAPI
+Python
+PostgreSQL
+Redis
+Docker
+Object Storage
+📁 Backend Structure
+jarvis_backend
+│
+├── app
+│
+├── api
+│   ├── auth_routes.py
+│   ├── assistant_routes.py
+│   ├── agent_routes.py
+│
+├── services
+│   ├── gemini_service.py
+│   ├── openrouter_service.py
+│   ├── rag_service.py
+│   ├── task_service.py
+│
+├── models
+│   ├── tenant.py
+│   ├── assistant.py
+│   ├── knowledge.py
+│   ├── conversation.py
+│
+└── main.py
+🏢 Multi-Tenant System
+
+Each user must have a unique tenant.
+
+Example:
+
+tenant_id = UUID
+
+All resources are linked to this tenant.
+
+Example:
+
+Tenant A
+
+avatar
+wake word
+knowledge
+conversations
+
+Tenant B
+
+avatar
+wake word
+knowledge
+conversations
+🗄 Database Schema
+Tenants
+tenants
+-------
+id
+email
+password_hash
+created_at
+Assistants
+assistants
+----------
+tenant_id
+assistant_name
+avatar_url
+wake_word
+voice_gender
+language
+personality_prompt
+Knowledge Base
+knowledge_entries
+-----------------
+tenant_id
+title
+content
+embedding
+
+Used for RAG retrieval.
+
+Conversations
+conversations
+-------------
+tenant_id
+query
+response
+timestamp
+🧠 AI Engine
+
+The AI system must support multi-provider LLM fallback.
+
+Default LLM
+
+Primary provider:
+
+Gemini API
+
+Example model:
+
+gemini-1.5-flash
+Fallback Provider
+
+If Gemini fails:
+
+Use:
+
+OpenRouter
+model: gpt-4o-mini
+
+Flow:
+
+User Query
+    │
+    ▼
+Gemini API
+    │
+    ├ success → return response
+    │
+    └ failure
+         ▼
+     OpenRouter
+         ▼
+     GPT-4o-mini
+⚙️ Backend APIs
+Authentication
+POST /auth/signup
+POST /auth/login
+Assistant Configuration
+GET /assistant/config
+POST /assistant/config
+
+Returns:
+
+assistant_name
+avatar_url
+wake_word
+voice_gender
+Voice Query
+POST /agent/query
+
+Example request:
+
+{
+ "tenant_id": "abc123",
+ "query": "What services do you offer?"
+}
+
+Example response:
+
+{
+ "response": "We offer AI development services."
+}
+📚 Knowledge Queries
+
+User asks:
+
+"What are your services?"
+
+Backend performs:
+
+vector search
+retrieve knowledge
+inject context
+send to LLM
+
+This enables tenant-specific knowledge assistants.
+
+⚙️ Task Engine (Phase 2)
+
+Basic automation commands.
+
+Supported tasks:
+
+open installed apps
+set reminders
+search internet
+
+Examples:
+
+User says:
+
+Jarvis open YouTube
+
+App triggers Android intent.
+
+User says:
+
+Set reminder at 3 PM
+
+Mobile app schedules local reminder.
+
+User says:
+
+Search for AI startups
+
+Assistant opens browser search.
+
+☁️ Storage System
+
+Avatar images stored in:
+database
+
+Database stores only:
+
+avatar_url
+🐳 Deployment
+
+All backend services must be containerized.
+
+docker-compose
+
+Services:
+
+backend
+postgres
+redis
+object storage
+vector db
+🔒 Security
+
+Implement:
+
+JWT authentication
+tenant isolation
+rate limiting
+HTTPS
+🎯 Final Expected Result
+
+The system should allow users to:
+
+Download the mobile assistant app
+
+Sign up inside the app
+
+Customize their assistant
+
+Activate a floating avatar
+
+Trigger assistant using wake word
+
+Ask questions and receive voice responses
+
+Execute simple tasks
+
+All data and AI processing must be handled by the central SaaS backend controlled by the platform owner.

@@ -1,0 +1,49 @@
+name: jarvis_mobile
+description: JARVIS AI Mobile Assistant - Multi-Tenant SaaS Platform
+publish_to: "none"
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.2.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # HTTP & API
+  http: ^1.2.1
+
+  # Local storage (using shared_preferences only — no secure_storage conflict)
+  shared_preferences: ^2.2.3
+
+  # Voice — upgraded to ^7 to resolve js package conflict
+  speech_to_text: ^7.3.0
+  flutter_tts: ^4.2.0
+  permission_handler: ^11.3.1
+
+  # Image & Avatar
+  image_picker: ^1.1.2
+  cached_network_image: ^3.3.1
+
+  # Floating Overlay (Android system overlay)
+  flutter_overlay_window: ^0.5.0
+
+  # State management
+  provider: ^6.1.2
+
+  # UI Enhancements
+  flutter_animate: ^4.5.0
+  google_fonts: ^6.2.1
+  animated_text_kit: ^4.2.2
+  avatar_glow: ^3.0.1
+
+  # Utils
+  intl: ^0.19.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.2
+
+flutter:
+  uses-material-design: true
